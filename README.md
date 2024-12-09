@@ -1,120 +1,28 @@
-## STATS 507 Final Project
-This project is inspired by the work of Wu et al. on Autoformer, which introduces decomposition transformers for long-term time-series forecasting. The codes are largely based on the Autoformer (NeurIPS 2021).
-# Autoformer (NeurIPS 2021)
+# STATS 507 Final Project
 
-Autoformer: Decomposition Transformers with Auto-Correlation for Long-Term Series Forecasting
+## Overview
 
-Time series forecasting is a critical demand for real applications. Enlighted by the classic time series analysis and stochastic process theory, we propose the Autoformer as a general series forecasting model [[paper](https://arxiv.org/abs/2106.13008)]. **Autoformer goes beyond the Transformer family and achieves the series-wise connection for the first time.**
+This project is inspired by the work of **Wu et al.** on **Autoformer**, which introduces **decomposition transformers** for long-term time-series forecasting. Our implementation is largely based on the [Autoformer (NeurIPS 2021)](https://github.com/thuml/Autoformer) repository, with modifications and additional features tailored to our project.
 
-In long-term forecasting, Autoformer achieves SOTA, with a **38% relative improvement** on six benchmarks, covering five practical applications: **energy, traffic, economics, weather and disease**.
+Autoformer is a general series forecasting model that leverages decomposition and auto-correlation mechanisms to achieve state-of-the-art (SOTA) performance in long-term forecasting tasks, covering **energy, traffic, economics, weather, and disease data**. Our project builds upon this foundation to explore advanced techniques and insights for time-series forecasting.
 
-:triangular_flag_on_post:**News** (2023.08) Autoformer has been included in [Hugging Face](https://huggingface.co/models?search=autoformer). See [blog](https://huggingface.co/blog/autoformer).
+---
 
-:triangular_flag_on_post:**News** (2023.06) The extension version of Autoformer ([Interpretable weather forecasting for worldwide stations with a unified deep model](https://www.nature.com/articles/s42256-023-00667-9)) has been published in Nature Machine Intelligence as the [Cover Article](https://www.nature.com/natmachintell/volumes/5/issues/6).
+## Autoformer (NeurIPS 2021)
 
-:triangular_flag_on_post:**News** (2023.02) Autoformer has been included in our [[Time-Series-Library]](https://github.com/thuml/Time-Series-Library), which covers long- and short-term forecasting, imputation, anomaly detection, and classification.
+### Core Contributions of Autoformer
+- **Deep Decomposition Architecture**: Progressive decomposition of trend and seasonal components during forecasting.
+- **Auto-Correlation Mechanism**: A novel mechanism that discovers period-based dependencies and aggregates information at the series level, resulting in inherent log-linear complexity.
 
-:triangular_flag_on_post:**News** (2022.02-2022.03) Autoformer has been deployed in [2022 Winter Olympics](https://en.wikipedia.org/wiki/2022_Winter_Olympics) to provide weather forecasting for competition venues, including wind speed and temperature.
-
-## Autoformer vs. Transformers
-
-**1. Deep decomposition architecture**
-
-We renovate the Transformer as a deep decomposition architecture, which can progressively decompose the trend and seasonal components during the forecasting process.
-
-<p align="center">
-<img src=".\pic\Autoformer.png" height = "250" alt="" align=center />
-<br><br>
-<b>Figure 1.</b> Overall architecture of Autoformer.
-</p>
-
-**2. Series-wise Auto-Correlation mechanism**
-
-Inspired by the stochastic process theory, we design the Auto-Correlation mechanism, which can discover period-based dependencies and aggregate the information at the series level. This empowers the model with inherent log-linear complexity. This series-wise connection contrasts clearly from the previous self-attention family.
-
-<p align="center">
-<img src=".\pic\Auto-Correlation.png" height = "250" alt="" align=center />
-<br><br>
-<b>Figure 2.</b> Auto-Correlation mechansim.
-</p>
-
-## Get Started
-
-1. Install Python 3.6, PyTorch 1.9.0.
-2. Download data. You can obtain all the six benchmarks from [Google Drive](https://drive.google.com/drive/folders/1ZOYpTUa82_jCcxIdTmyr0LXQfvaM9vIy?usp=sharing). **All the datasets are well pre-processed** and can be used easily.
-3. Train the model. We provide the experiment scripts of all benchmarks under the folder `./scripts`. You can reproduce the experiment results by:
-
-```bash
-bash ./scripts/ETT_script/Autoformer_ETTm1.sh
-bash ./scripts/ECL_script/Autoformer.sh
-bash ./scripts/Exchange_script/Autoformer.sh
-bash ./scripts/Traffic_script/Autoformer.sh
-bash ./scripts/Weather_script/Autoformer.sh
-bash ./scripts/ILI_script/Autoformer.sh
-```
-
-4. Special-designed implementation
-
-- **Speedup Auto-Correlation:** We built the Auto-Correlation mechanism as a batch-normalization-style block to make it more memory-access friendly. See the [paper](https://arxiv.org/abs/2106.13008) for details.
-
-- **Without the position embedding:** Since the series-wise connection will inherently keep the sequential information, Autoformer does not need the position embedding, which is different from Transformers.
-
-### Reproduce with Docker
-
-To easily reproduce the results using Docker, conda and Make,  you can follow the next steps:
-1. Initialize the docker image using: `make init`. 
-2. Download the datasets using: `make get_dataset`.
-3. Run each script in `scripts/` using `make run_module module="bash scripts/ETT_script/Autoformer_ETTm1.sh"` for each script.
-4. Alternatively, run all the scripts at once:
-```
-for file in `ls scripts`; do make run_module module="bash scripts/$script"; done
-```
-### A Simple Example
-See `predict.ipynb` for workflow (in Chinese).
-
-## Main Results
-
-We experiment on six benchmarks, covering five main-stream applications. We compare our model with ten baselines, including Informer, N-BEATS, etc. Generally, for the long-term forecasting setting, Autoformer achieves SOTA, with a **38% relative improvement** over previous baselines.
-
-<p align="center">
-<img src=".\pic\results.png" height = "550" alt="" align=center />
-</p>
-
-## Baselines
-
-We will keep adding series forecasting models to expand this repo:
-
-- [x] Autoformer
-- [x] Informer
-- [x] Transformer
-- [x] Reformer
-- [ ] LogTrans
-- [ ] N-BEATS
-
-## Citation
-
-If you find this repo useful, please cite our paper. 
-
-```
-@inproceedings{wu2021autoformer,
-  title={Autoformer: Decomposition Transformers with {Auto-Correlation} for Long-Term Series Forecasting},
-  author={Haixu Wu and Jiehui Xu and Jianmin Wang and Mingsheng Long},
-  booktitle={Advances in Neural Information Processing Systems},
-  year={2021}
-}
-```
-
-## Contact
-
-If you have any questions or want to use the code, please contact wuhx23@mails.tsinghua.edu.cn.
-
-## Acknowledgement
-
-We appreciate the following github repos a lot for their valuable code base or datasets:
-
-https://github.com/zhouhaoyi/Informer2020
-
+For more details, refer to the [original paper](https://arxiv.org/abs/2106.13008).
+## Data set
+I appreciate the following github repos for their valuable code base or datasets:
 https://github.com/zhouhaoyi/ETDataset
 
-https://github.com/laiguokun/multivariate-time-series-data
+https://github.com/thuml/Autoformer.git
+
+
+## Get started
+
+
 
