@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Stop on errors, print commands
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -Eeuo pipefail
+set -x
+
+$ python3 ./visualization/loss_curve.py
+echo "Loss curves saved in loss folder..."
+$ python3 ./visualization/mse.py
+echo "MSE & MAE curves saved in ./results/Different_Drop_Out folder..."
+

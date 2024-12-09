@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Stop on errors, print commands
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -Eeuo pipefail
+set -x
+
+echo "Creating virtual environment..."
+python3 -m venv env
+
+echo "Activating virtual environment..."
+source env/bin/activate
+
+# Install all required packages:
+echo "Installing required packages..."
+pip install -r requirements.txt
+
+echo "Setup complete. The virtual environment is activated."
+echo "To deactivate, use the 'deactivate' command."

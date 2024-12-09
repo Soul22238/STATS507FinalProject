@@ -1,0 +1,144 @@
+#!/bin/bash
+
+# Stop on errors, print commands
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -Eeuo pipefail
+set -x
+
+# Drop out rate different 0.01, 0.1, 0.2, 0.3, 0.4
+# Fix seq_len 96, label_len 48, pred_len 24,
+# learning rate 0.00001 
+
+echo "Start training, default using gpu"
+echo "Drop out rate different 0.01, 0.1, 0.2, 0.3, 0.4"
+echo "Fix seq_len 96, label_len 48, pred_len 24, learning rate 0.00001"
+
+echo "Train with Drop out rate 0.01======================"
+python -u run.py \
+  --is_training 1 \
+  --root_path ./dataset/ETT-small/ \
+  --data_path ETTh1.csv \
+  --model_id ETTh1_96_24 \
+  --model Autoformer \
+  --data ETTh1 \
+  --features MS \
+  --seq_len 96 \
+  --label_len 48 \
+  --train_epochs 10\
+  --pred_len 24 \
+  --dropout 0.01 \
+  --learning_rate 0.00001\
+  --e_layers 2 \
+  --d_layers 1 \
+  --factor 3 \
+  --enc_in 7 \
+  --dec_in 7 \
+  --c_out 7 \
+  --early_stop \
+  --des 'Exp' \
+  --use_gpu 'T'\
+  --itr 1
+
+echo "Train with Drop out rate 0.1======================"
+python -u run.py \
+  --is_training 1 \
+  --root_path ./dataset/ETT-small/ \
+  --data_path ETTh1.csv \
+  --model_id ETTh1_96_24 \
+  --model Autoformer \
+  --data ETTh1 \
+  --features MS \
+  --seq_len 96 \
+  --label_len 48 \
+  --train_epochs 10\
+  --pred_len 24 \
+  --dropout 0.1 \
+  --learning_rate 0.00001\
+  --e_layers 2 \
+  --d_layers 1 \
+  --factor 3 \
+  --enc_in 7 \
+  --dec_in 7 \
+  --c_out 7 \
+  --early_stop \
+  --des 'Exp' \
+  --use_gpu 'T'\
+  --itr 1
+
+echo "Train with Drop out rate 0.2======================"
+python -u run.py \
+  --is_training 1 \
+  --root_path ./dataset/ETT-small/ \
+  --data_path ETTh1.csv \
+  --model_id ETTh1_96_24 \
+  --model Autoformer \
+  --data ETTh1 \
+  --features MS \
+  --seq_len 96 \
+  --label_len 48 \
+  --train_epochs 10\
+  --pred_len 24 \
+  --dropout 0.2 \
+  --learning_rate 0.00001\
+  --e_layers 2 \
+  --d_layers 1 \
+  --factor 3 \
+  --enc_in 7 \
+  --dec_in 7 \
+  --c_out 7 \
+  --early_stop \
+  --des 'Exp' \
+  --use_gpu 'T'\
+  --itr 1
+
+echo "Train with Drop out rate 0.3======================"
+python -u run.py \
+  --is_training 1 \
+  --root_path ./dataset/ETT-small/ \
+  --data_path ETTh1.csv \
+  --model_id ETTh1_96_24 \
+  --model Autoformer \
+  --data ETTh1 \
+  --features MS \
+  --seq_len 96 \
+  --label_len 48 \
+  --train_epochs 10\
+  --pred_len 24 \
+  --dropout 0.3 \
+  --learning_rate 0.00001\
+  --e_layers 2 \
+  --d_layers 1 \
+  --factor 3 \
+  --enc_in 7 \
+  --dec_in 7 \
+  --c_out 7 \
+  --early_stop \
+  --des 'Exp' \
+  --use_gpu 'T'\
+  --itr 1
+
+echo "Train with Drop out rate 0.4======================"
+python -u run.py \
+  --is_training 1 \
+  --root_path ./dataset/ETT-small/ \
+  --data_path ETTh1.csv \
+  --model_id ETTh1_96_24 \
+  --model Autoformer \
+  --data ETTh1 \
+  --features MS \
+  --seq_len 96 \
+  --label_len 48 \
+  --train_epochs 10\
+  --pred_len 24 \
+  --dropout 0.4 \
+  --learning_rate 0.00001\
+  --e_layers 2 \
+  --d_layers 1 \
+  --factor 3 \
+  --enc_in 7 \
+  --dec_in 7 \
+  --c_out 7 \
+  --early_stop \
+  --des 'Exp' \
+  --use_gpu 'T'\
+  --itr 1

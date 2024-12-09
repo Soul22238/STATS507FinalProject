@@ -91,14 +91,24 @@ def plot_mean_loss_across_learning_rate(loss_folder):
     plt.savefig(save_path)
     print(f"Combined Mean Loss Plot saved as {save_path}")
     plt.show()
-loss_folder = '/Users/mysteryshack/Downloads/Graduate/Courses/STATS507/Autoformer/loss/learning_rate_2'
 
-# for file_name in os.listdir(loss_folder):
-#     file_path = os.path.join(loss_folder, file_name)
-#     if os.path.isfile(file_path) and file_name.endswith('.pkl'):
-#         try:
-#             plot_and_save_loss(file_path)
-#         except Exception as e:
-#             print(f"Error processing file {file_name}: {e}")
+for loss_folder in [
+    '/Users/mysteryshack/Downloads/Graduate/Courses/STATS507/Autoformer/loss/drop_out',
+]:
 
-plot_mean_loss_across_learning_rate(loss_folder)
+    for file_name in os.listdir(loss_folder):
+        file_path = os.path.join(loss_folder, file_name)
+        if os.path.isfile(file_path) and file_name.endswith('.pkl'):
+            try:
+                plot_and_save_loss(file_path)
+            except Exception as e:
+                print(f"Error processing file {file_name}: {e}")
+
+    plot_mean_loss_across_dropouts(loss_folder)
+
+for loss_folder in [
+    '/Users/mysteryshack/Downloads/Graduate/Courses/STATS507/Autoformer/loss/learning_rate_1',
+    '/Users/mysteryshack/Downloads/Graduate/Courses/STATS507/Autoformer/loss/learning_rate_2'
+]:
+    
+    plot_mean_loss_across_learning_rate(loss_folder)

@@ -4,6 +4,7 @@ import torch
 from exp.exp_main import Exp_Main
 import random
 import numpy as np
+import platform
 
 
 def main():
@@ -79,10 +80,16 @@ def main():
 
     args = parser.parse_args()
 
-    # args.use_gpu = True if torch.cuda.is_available() and args.use_gpu else False
-    # For Mac
-    print(args.use_gpu, args.early_stop)
-    args.use_gpu = True if torch.backends.mps.is_available() and args.use_gpu else False
+    # 检查是否是 MacOS
+    is_mac = platform.system() == 'Darwin'
+
+    # 对于 Mac
+    if is_mac:
+        # 使用 MPS（Metal Performance Shaders）来加速 Mac 上的深度学习
+        args.use_gpu = True if torch.backends.mps.is_available() and args.use_gpu else False
+    else:
+        # 对于其他系统（如 Windows），使用 CUDA（NVIDIA GPU）
+        args.use_gpu = True if torch.cuda.is_available() and args.use_gpu else False
 
     if args.use_gpu and args.use_multi_gpu:
         args.devices = args.devices.replace(' ', '')

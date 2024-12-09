@@ -21,8 +21,38 @@ https://github.com/zhouhaoyi/ETDataset
 
 https://github.com/thuml/Autoformer.git
 
+## Quick start
+Activate the virtual environment.  
+For Windows users, please install Windows Command line tools (WSL).  
+Check if the executable bit is set on your script:
+```console
+$ ls -l ./bin/setup
+```
+If there is an x missing:
 
-## Get started
+```console
+$ chmod +x ./bin/setup
+```
+Run scripts in the terminal to set up environment:
+```console
+$ ./bin/setup
+```
+Run scripts in the terminal to train model with different hyperparameters
+```console
+$ chmod +x ./bin/train_drop_out
+$ ./bin/train_drop_out
++ echo 'Start training, default using gpu'
+$ chmod +x ./bin/train_learning_rate
+$ ./bin/train_learning_rate
++ echo 'Start training, default using gpu'
+```
 
+Run python codes to visulize the outcome. 
+Note that the outcome has alreday prestored.
+```console
+$ chmod +x ./bin/visualization
+$ ./bin/visualization
+```
 
+By Jingyuan Yang <janefar@umich.edu>
 
