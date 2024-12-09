@@ -41,11 +41,19 @@ class Dataset_ETT_hour(Dataset):
         self.scaler = StandardScaler()
         df_raw = pd.read_csv(os.path.join(self.root_path,
                                           self.data_path))
-
-        border1s = [0, 12 * 30 * 24 - self.seq_len, 12 * 30 * 24 + 4 * 30 * 24 - self.seq_len]
-        border2s = [12 * 30 * 24, 12 * 30 * 24 + 4 * 30 * 24, 12 * 30 * 24 + 8 * 30 * 24]
+        total_len = len(df_raw)
+        train_size = int(0.6 * total_len)
+        val_size = int(0.2 * total_len)
+        test_size = total_len - train_size - val_size
+    
+        border1s = [0, train_size - self.seq_len, train_size + val_size - self.seq_len]
+        border2s = [train_size, train_size + val_size, total_len]
         border1 = border1s[self.set_type]
         border2 = border2s[self.set_type]
+        #  border1s = [0, 12 * 30 * 24 - self.seq_len, 12 * 30 * 24 + 4 * 30 * 24 - self.seq_len]
+        #  border2s = [12 * 30 * 24, 12 * 30 * 24 + 4 * 30 * 24, 12 * 30 * 24 + 8 * 30 * 24]
+        #  border1 = border1s[self.set_type]
+        #  border2 = border2s[self.set_type]
 
         if self.features == 'M' or self.features == 'MS':
             cols_data = df_raw.columns[1:]

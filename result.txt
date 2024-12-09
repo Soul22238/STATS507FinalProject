@@ -1,0 +1,51 @@
+ETTh1_96_24_Autoformer_ETTh1_ftMS_sl96_ll48_pl24_dm512_nh8_el2_dl1_df2048_fc3_ebtimeF_dtTrue_earlystopTrue_Exp_0  
+mse:0.7453851699829102, mae:0.6772802472114563
+
+ETTh1_96_24_Autoformer_ETTh1_ftMS_sl96_ll60_pl24_dm512_nh8_el2_dl1_df2048_fc3_ebtimeF_dtTrue_earlystopTrue_Exp_0  
+mse:2.6352651119232178, mae:1.210473656654358
+
+ETTh1_96_24_Autoformer_ETTh1_ftMS_sl96_ll80_pl24_dm512_nh8_el2_dl1_df2048_fc3_ebtimeF_dtTrue_earlystopTrue_Exp_0  
+mse:1.1169171333312988, mae:0.8354352116584778
+
+ETTh1_96_48_Autoformer_ETTh1_ftMS_sl96_ll60_pl48_dm512_nh8_el2_dl1_df2048_fc3_ebtimeF_dtTrue_earlystopTrue_Exp_0  
+mse:0.9476974010467529, mae:0.7468799948692322
+
+ETTh1_96_48_Autoformer_ETTh1_ftMS_sl96_ll60_pl54_dm512_nh8_el2_dl1_df2048_fc3_ebtimeF_dtTrue_earlystopTrue_Exp_0  
+mse:0.9279276728630066, mae:0.7315835356712341
+
+ETTh1_96_48_Autoformer_ETTh1_ftMS_sl96_ll60_pl60_dm512_nh8_el2_dl1_df2048_fc3_ebtimeF_dtTrue_earlystopTrue_Exp_0  
+mse:0.9614095687866211, mae:0.7560758590698242
+
+ETTh1_96_24_Autoformer_ETTh1_ftMS_sl96_ll48_pl24_dm512_nh8_el2_dl1_df2048_fc3_ebtimeF_dtTrue_earlystopTrue_Exp_0  
+mse:0.9379482865333557, mae:0.7452289462089539
+
+ETTh1_96_24_dr0.01_Autoformer_sl96_ll48_pl24_earlystopTrue_Exp_0  
+mse:0.7351822257041931, mae:0.6495001316070557
+
+ETTh1_96_24_dr0.1_Autoformer_sl96_ll48_pl24_earlystopTrue_Exp_0  
+mse:0.7585670948028564, mae:0.6786093711853027
+
+ETTh1_96_24_dr0.2_Autoformer_sl96_ll48_pl24_earlystopTrue_Exp_0  
+mse:0.7576121091842651, mae:0.653654158115387
+
+ETTh1_96_24_dr0.01_Autoformer_sl96_ll48_pl24_earlystopTrue_Exp_0  
+mse:0.7733029723167419, mae:0.6589168310165405
+
+ETTh1_96_24_dr0.1_Autoformer_sl96_ll48_pl24_earlystopTrue_Exp_0  
+mse:0.7492212057113647, mae:0.647182285785675
+
+ETTh1_96_24_dr0.3_Autoformer_sl96_ll48_pl24_earlystopTrue_Exp_0  
+mse:0.7609596848487854, mae:0.6566603779792786
+
+ETTh1_96_24_dr0.4_Autoformer_sl96_ll48_pl24_earlystopTrue_Exp_0  
+mse:0.7793740630149841, mae:0.6668320894241333
+
+ETTh1_96_24_dr0.2_lr0.01_Autoformer_sl96_ll48_pl24_earlystopFalse_Exp_0  
+mse:4359316307968.0, mae:1878668.75
+
+ETTh1_96_24_dr0.2_lr0.001_Autoformer_sl96_ll48_pl24_earlystopFalse_Exp_0  
+mse:3.8906614780426025, mae:1.6551907062530518
+
+ETTh1_96_24_dr0.2_lr0.0001_Autoformer_sl96_ll48_pl24_earlystopFalse_Exp_0  
+mse:0.7588520646095276, mae:0.6619814038276672
+

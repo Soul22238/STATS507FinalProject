@@ -58,8 +58,8 @@ def main():
     parser.add_argument('--activation', type=str, default='gelu', help='activation')
     parser.add_argument('--output_attention', action='store_true', help='whether to output attention in encoder')
     parser.add_argument('--do_predict', action='store_true', help='whether to predict unseen future data')
-
-    # optimization
+    parser.add_argument('--early_stop', action='store_true', help='early stop')
+    # optimizations
     parser.add_argument('--num_workers', type=int, default=10, help='data loader num workers')
     parser.add_argument('--itr', type=int, default=2, help='experiments times')
     parser.add_argument('--train_epochs', type=int, default=10, help='train epochs')
@@ -79,7 +79,10 @@ def main():
 
     args = parser.parse_args()
 
-    args.use_gpu = True if torch.cuda.is_available() and args.use_gpu else False
+    # args.use_gpu = True if torch.cuda.is_available() and args.use_gpu else False
+    # For Mac
+    print(args.use_gpu, args.early_stop)
+    args.use_gpu = True if torch.backends.mps.is_available() and args.use_gpu else False
 
     if args.use_gpu and args.use_multi_gpu:
         args.devices = args.devices.replace(' ', '')
@@ -95,22 +98,15 @@ def main():
     if args.is_training:
         for ii in range(args.itr):
             # setting record of experiments
-            setting = '{}_{}_{}_ft{}_sl{}_ll{}_pl{}_dm{}_nh{}_el{}_dl{}_df{}_fc{}_eb{}_dt{}_{}_{}'.format(
+            setting = '{}_dr{}_lr{}_{}_sl{}_ll{}_pl{}_earlystop{}_{}_{}'.format(
                 args.model_id,
+                args.dropout,
+                args.learning_rate,
                 args.model,
-                args.data,
-                args.features,
                 args.seq_len,
                 args.label_len,
                 args.pred_len,
-                args.d_model,
-                args.n_heads,
-                args.e_layers,
-                args.d_layers,
-                args.d_ff,
-                args.factor,
-                args.embed,
-                args.distil,
+                args.early_stop,
                 args.des, ii)
 
             exp = Exp(args)  # set experiments
@@ -127,22 +123,16 @@ def main():
             torch.cuda.empty_cache()
     else:
         ii = 0
-        setting = '{}_{}_{}_ft{}_sl{}_ll{}_pl{}_dm{}_nh{}_el{}_dl{}_df{}_fc{}_eb{}_dt{}_{}_{}'.format(args.model_id,
-                                                                                                      args.model,
-                                                                                                      args.data,
-                                                                                                      args.features,
-                                                                                                      args.seq_len,
-                                                                                                      args.label_len,
-                                                                                                      args.pred_len,
-                                                                                                      args.d_model,
-                                                                                                      args.n_heads,
-                                                                                                      args.e_layers,
-                                                                                                      args.d_layers,
-                                                                                                      args.d_ff,
-                                                                                                      args.factor,
-                                                                                                      args.embed,
-                                                                                                      args.distil,
-                                                                                                      args.des, ii)
+        setting = '{}_dr{}_lr{}_{}_sl{}_ll{}_pl{}_earlystop{}_{}_{}'.format(
+                args.model_id,
+                args.dropout,
+                args.learning_rate,
+                args.model,
+                args.seq_len,
+                args.label_len,
+                args.pred_len,
+                args.early_stop,
+                args.des, ii)
 
         exp = Exp(args)  # set experiments
         print('>>>>>>>testing : {}<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'.format(setting))

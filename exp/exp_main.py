@@ -8,6 +8,7 @@ from exp.exp_basic import Exp_Basic
 from models import Informer, Autoformer, Transformer, Reformer
 from utils.tools import EarlyStopping, adjust_learning_rate, visual
 from utils.metrics import metric
+import pickle
 
 import numpy as np
 import torch
@@ -23,9 +24,15 @@ import numpy as np
 warnings.filterwarnings('ignore')
 
 
+
+
 class Exp_Main(Exp_Basic):
     def __init__(self, args):
         super(Exp_Main, self).__init__(args)
+        # all_train_loss list of lists
+        # each list in the list represent an epoch
+        # the element in the epoch is MSEloss
+        self.all_train_loss = []
 
     def _build_model(self):
         model_dict = {
@@ -133,7 +140,7 @@ class Exp_Main(Exp_Basic):
                 batch_y = batch_y.float().to(self.device)
                 batch_x_mark = batch_x_mark.float().to(self.device)
                 batch_y_mark = batch_y_mark.float().to(self.device)
-
+                # forward
                 outputs, batch_y = self._predict(batch_x, batch_y, batch_x_mark, batch_y_mark)
 
                 loss = criterion(outputs, batch_y)
@@ -152,9 +159,10 @@ class Exp_Main(Exp_Basic):
                     scaler.step(model_optim)
                     scaler.update()
                 else:
+                    loss = loss.contiguous()
                     loss.backward()
                     model_optim.step()
-
+            self.all_train_loss.append(train_loss)
             print("Epoch: {} cost time: {}".format(epoch + 1, time.time() - epoch_time))
             train_loss = np.average(train_loss)
             vali_loss = self.vali(vali_data, vali_loader, criterion)
@@ -163,7 +171,8 @@ class Exp_Main(Exp_Basic):
             print("Epoch: {0}, Steps: {1} | Train Loss: {2:.7f} Vali Loss: {3:.7f} Test Loss: {4:.7f}".format(
                 epoch + 1, train_steps, train_loss, vali_loss, test_loss))
             early_stopping(vali_loss, self.model, path)
-            if early_stopping.early_stop:
+
+            if early_stopping.early_stop and self.args.early_stop:
                 print("Early stopping")
                 break
 
@@ -171,7 +180,8 @@ class Exp_Main(Exp_Basic):
 
         best_model_path = path + '/' + 'checkpoint.pth'
         self.model.load_state_dict(torch.load(best_model_path))
-
+        with open(f'./loss/{setting}_train_loss.pkl', 'wb') as f:
+            pickle.dump(self.all_train_loss, f)
         return
 
     def test(self, setting, test=0):
@@ -196,7 +206,9 @@ class Exp_Main(Exp_Basic):
                 batch_y_mark = batch_y_mark.float().to(self.device)
 
                 outputs, batch_y = self._predict(batch_x, batch_y, batch_x_mark, batch_y_mark)
-
+                # print(outputs.shape) torch.Size([32, 24, 1])
+                # print(batch_y.shape)
+                # print("__________________")
                 outputs = outputs.detach().cpu().numpy()
                 batch_y = batch_y.detach().cpu().numpy()
 

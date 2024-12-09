@@ -1,3 +1,5 @@
+## STATS 507 Final Project
+This project is inspired by the work of Wu et al. on Autoformer, which introduces decomposition transformers for long-term time-series forecasting. The codes are largely based on the Autoformer (NeurIPS 2021).
 # Autoformer (NeurIPS 2021)
 
 Autoformer: Decomposition Transformers with Auto-Correlation for Long-Term Series Forecasting
